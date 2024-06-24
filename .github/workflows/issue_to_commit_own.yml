@@ -1,0 +1,72 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Create PR in incoming repo path given by issue
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow when issue is open 
+  issues:
+    types: [opened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
+        with: 
+          template-path: .github/ISSUE_TEMPLATE/repo_name.yml
+
+      - name: do something for tag1
+        if: contains(github.event.issue.labels.*.name, 'exercise1')
+        run: |
+          echo is running this for label excercise1
+          
+          #create commit in readme
+          echo -e '\nmodifying readme from workflow while doing excercise 1' >> README.md
+          cat README.md
+
+      - name: do something for tag2
+        if: contains(github.event.issue.labels.*.name, 'exercise2')
+        run: |
+          echo is running this for label excercise2
+          
+          #create commit in readme
+          echo -e '\nmodifying readme from workflow while doing excercise 2' >> README.md
+          cat README.md  
+
+      - uses: EndBug/add-and-commit@v9
+        with: 
+          default_author: github_actions
+          add: 'README.md'
+          message: 'edit readme from workflow'  
+
+          #env: 
+          #ISSUE_LABEL: ${{ steps.issue-parser.outputs.issueparser_labels}}
+
+
+      - name: close issue
+        run: gh issue close $ISSUE
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}  
+
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      
