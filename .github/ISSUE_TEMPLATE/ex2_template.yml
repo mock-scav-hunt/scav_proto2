@@ -1,0 +1,26 @@
+name: Exercise 2
+description: Info keeping track of exercise 2
+title: "Exercise 2 Title"
+labels: ["exercise2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for starting this exercise!
+  - type: input
+    id: some_solution
+    attributes:
+      label: Write few git commands 
+      description: What are some commands you saw on this lesson? 
+      placeholder: ex. git pull 
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+
