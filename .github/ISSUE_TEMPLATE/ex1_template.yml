@@ -1,7 +1,7 @@
 name: Exercise 1
 description: Info keeping track of exercise 1
 title: "Exercise 1 Title"
-labels: ["excercise1"]
+labels: ["exercise1"]
 body:
   - type: markdown
     attributes:
