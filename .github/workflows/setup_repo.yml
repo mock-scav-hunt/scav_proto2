@@ -26,7 +26,7 @@ jobs:
         run: |
 
 
-          #gh repo edit --enable-issues
+          gh repo edit --enable-issues
 
           gh label clone mock-scav-hunt/scav_proto2
 
