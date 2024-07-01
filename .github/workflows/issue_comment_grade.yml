@@ -29,7 +29,7 @@ jobs:
 
       - name: grade exercise1
         id: grading
-        if: contains(github.event.issue.labels.*.name, 'exercise1')
+        if: contains(github.event.issue.labels.*.name, 'exercise2')
         run: |
           echo grading exercise
 
@@ -37,22 +37,22 @@ jobs:
           echo "correct=no" >> "$GITHUB_OUTPUT"
         
 
-      - name: open issue with tag2 if issue also had tag1
+      - name: open issue with tag3 if issue had tag2
         if: |
-          contains(github.event.issue.labels.*.name, 'exercise1') && 
+          contains(github.event.issue.labels.*.name, 'exercise2') && 
           steps.grading.outputs.correct == 'pass'
         run: |
           echo is running this for label excercise1
           echo ${{ steps.grading.outputs.correct }} 
 
-          gh issue create --title "$TITLE" --body "$BODY" --label exercise2 --repo $GITHUB_REPOSITORY
+          gh issue create --title "$TITLE" --body "$BODY" --label exercise3 --repo $GITHUB_REPOSITORY
 
         env:      
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TITLE: Next Exercise title
           BODY: |
-            # Exercise 2
-            Some instructions for second problem
+            # Exercise 3
+            Some instructions for third problem
 
                     
       - name: comment on issue if wrong
