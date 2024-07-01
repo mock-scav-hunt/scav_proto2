@@ -1,0 +1,81 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Grade when comment on issue
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow when issue is open 
+  issue_comment:
+    types: [created]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: grade exercise1
+        id: grading
+        if: contains(github.event.issue.labels.*.name, 'exercise1')
+        run: |
+          echo grading exercise
+
+          #create some variable if it is correct?
+          echo "correct=no" >> "$GITHUB_OUTPUT"
+        
+
+      - name: open issue with tag2 if issue also had tag1
+        if: |
+          contains(github.event.issue.labels.*.name, 'exercise1') && 
+          steps.grading.outputs.correct == 'pass'
+        run: |
+          echo is running this for label excercise1
+          echo ${{ steps.grading.outputs.correct }} 
+
+          gh issue create --title "$TITLE" --body "$BODY" --label exercise2 --repo $GITHUB_REPOSITORY
+
+        env:      
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: Next Exercise title
+          BODY: |
+            # Exercise 2
+            Some instructions for second problem
+
+                    
+      - name: comment on issue if wrong
+        if: steps.grading.outputs.correct != 'pass'
+        run: gh issue comment $ISSUE --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }} 
+          BODY: Please take a look at your answer 
+
+
+          
+      - name: close original issue
+        if: steps.grading.outputs.correct == 'pass'
+        run: gh issue close $ISSUE
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}  
+
+
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      
