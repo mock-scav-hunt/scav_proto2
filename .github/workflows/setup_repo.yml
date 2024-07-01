@@ -26,14 +26,11 @@ jobs:
         run: |
 
 
-          gh repo edit --enable-issues
-
           gh label clone mock-scav-hunt/scav_proto2
 
 
           gh issue create --title "$TITLE" --body "$BODY" --label exercise1 --repo $GITHUB_REPOSITORY
 
-          gh issue create --title "$TITLE2" --body "$BODY2" --label exercise2 --repo $GITHUB_REPOSITORY
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,10 +38,7 @@ jobs:
           BODY: |
             # Excercise 1
             Some instructions for first problem
-          TITLE2: Exercise 2
-          BODY2: |
-            Some other instructions for second problem
-
+         
     
            
            
