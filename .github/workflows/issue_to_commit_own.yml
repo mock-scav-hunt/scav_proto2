@@ -5,9 +5,7 @@ name: Create PR in incoming repo path given by issue
 # Controls when the workflow will run
 on:
   # Triggers the workflow when issue is open 
-  issues:
-    types: [opened]
-
+  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
