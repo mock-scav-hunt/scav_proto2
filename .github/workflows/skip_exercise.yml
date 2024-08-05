@@ -41,7 +41,7 @@ jobs:
           next_file="exercises/${next_ex}.md"
           echo $next_file
 
-          gh issue create --title "$next_ex" --body-file $next_file --label $next_ex --repo $GITHUB_REPOSITORY
+          gh issue create --title "$next_ex" --body-file $next_file --repo $GITHUB_REPOSITORY
 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
