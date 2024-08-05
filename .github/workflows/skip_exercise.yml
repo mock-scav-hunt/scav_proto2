@@ -15,7 +15,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    if: contains(github.event.issue.labels.*.name, 'skip')
+    if: github.event.issue.label.name == 'skip'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -29,21 +29,23 @@ jobs:
 
 
 
-      - name: open issue with tag2 if issue also had tag1
-        if: contains(github.event.issue.labels.*.name, 'exercise1')
+      - name: open issue for exercise n+1
         run: |
-          echo is running this for label exercise1
+          current_ex=${{ github.event.issue.title }}
+          echo $current_ex
+          ex_n=$(echo "$current_ex"|grep -Eo "[0-9]+"|head -n1)
+          echo $ex_n
+          next_ex="exercise$((ex_n+1))"
+          echo $next_ex
 
-          gh issue create --title "$TITLE" --body "$BODY" --label exercise2 --repo $GITHUB_REPOSITORY
+          next_file="exercises/${next_ex}.md"
+          echo $next_file
 
-        env:      
+          gh issue create --title "$next_ex" --body-file $next_file --label $next_ex --repo $GITHUB_REPOSITORY
+
+        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TITLE: Next Exercise title
-          BODY: |
-            # Exercise 2
-            Some instructions for second problem
 
-                    
           
       - name: close original issue (to be skipped)
         run: gh issue close $ISSUE
@@ -53,8 +55,4 @@ jobs:
 
 
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      
+       

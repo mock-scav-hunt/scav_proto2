@@ -34,7 +34,7 @@ jobs:
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TITLE: Exercise title
+          TITLE: exercise1
           BODY: |
             # Excercise 1
             Some instructions for first problem
