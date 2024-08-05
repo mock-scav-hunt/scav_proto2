@@ -1,0 +1,22 @@
+name: grade exercise 2
+
+on: 
+  workflow_call:
+
+jobs: 
+
+  start_job: 
+    runs-on: ubuntu-latest
+    steps:
+ 
+      - run: echo "The job was automatically triggered by ${{ github.actor }} using adding label in ${{ github.event.issue.title }}"
+
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: ls
+
+      - run: pwd
+          
+
