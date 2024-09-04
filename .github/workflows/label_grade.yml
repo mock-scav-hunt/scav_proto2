@@ -29,6 +29,9 @@ jobs:
       - name: grade exercise
         run: |
           gh workflow run "$EX_WORKFLOW"
+          cat $ISSUE
+          cat $ISSUE_TITLE
+          cat $GITHUB_EVENT_PATH
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EX_WORKFLOW: exercise1.yml
