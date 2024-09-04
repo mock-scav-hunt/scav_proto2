@@ -2,6 +2,10 @@ name: grade exercise 1
 
 on: 
   workflow_dispatch:
+    inputs:
+      issue_trig:
+        required: true
+        type: string
 
 jobs: 
 
@@ -43,13 +47,12 @@ jobs:
       - name: comment on issue if wrong
         if: steps.grading.outputs.correct != 'pass'
         run: |
-          echo $GITHUB_EVENT_PATH
-          cat $GITHUB_EVENT_PATH
-          #run: gh issue comment $ISSUE --body "$BODY"
+          echo $ISSUE        
+          gh issue comment $ISSUE --body "$BODY"  
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BODY: Please take a look at your answer
-
+          ISSUE: ${{ inputs.issue_trig }}
 
 
       - name: close original issue

@@ -28,16 +28,11 @@ jobs:
 
       - name: grade exercise
         run: |
-          gh workflow run "$EX_WORKFLOW"
-          echo $ISSUE
-          echo $ISSUE_TITLE
-          echo $GITHUB_EVENT_PATH
-          cat $GITHUB_EVENT_PATH
+          gh workflow run "$EX_WORKFLOW" -f issue_trig=${{ github.event.issue.html_url }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EX_WORKFLOW: exercise1.yml
-          ISSUE: ${{ github.event.issue.html_url }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+
 
 
 
