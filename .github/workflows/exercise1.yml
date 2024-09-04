@@ -42,7 +42,9 @@ jobs:
 
       - name: comment on issue if wrong
         if: steps.grading.outputs.correct != 'pass'
-        run: cat $GITHUB_EVENT_PATH
+        run: |
+          echo $GITHUB_EVENT_PATH
+          cat $GITHUB_EVENT_PATH
           #run: gh issue comment $ISSUE --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
