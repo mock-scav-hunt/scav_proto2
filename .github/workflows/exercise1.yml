@@ -25,7 +25,7 @@ jobs:
       - name: open issue n+1 when grade is pass
         if: steps.grading.outputs.correct == 'pass'
         run: |
-          current_ex=${{ github.event.issue.title }}
+          current_ex=$ISSUE_TITLE
           echo $current_ex
           ex_n=$(echo "$current_ex"|grep -Eo "[0-9]+"|head -n1)
           echo $ex_n
@@ -46,7 +46,6 @@ jobs:
         run: gh issue comment $ISSUE --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE: ${{ github.event.issue.html_url }}
           BODY: Please take a look at your answer
 
 
@@ -56,6 +55,5 @@ jobs:
         run: gh issue close $ISSUE
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE: ${{ github.event.issue.html_url }}
 
 

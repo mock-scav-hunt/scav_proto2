@@ -32,6 +32,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EX_WORKFLOW: exercise1.yml
+          ISSUE: ${{ github.event.issue.html_url }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
 
 
 
