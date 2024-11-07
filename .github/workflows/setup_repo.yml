@@ -28,10 +28,8 @@ jobs:
 
           gh label clone mock-scav-hunt/scav_proto2
 
-          EX = "exercise1.md"
 
-
-          gh issue create --title "$TITLE" --body-file $EX --repo $GITHUB_REPOSITORY
+          gh issue create --title "$TITLE" --body-file "exercise1.md" --repo $GITHUB_REPOSITORY
 
 
         env: 
