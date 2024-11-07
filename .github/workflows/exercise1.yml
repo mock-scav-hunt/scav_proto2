@@ -25,7 +25,8 @@ jobs:
           #create some variable if it is correct?
           echo "correct=no" >> "$GITHUB_OUTPUT"
         env: 
-          USER: ${{ inputs.user }} 
+          USER: ${{ inputs.user }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
       - uses: actions/checkout@v3
         with:
