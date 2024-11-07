@@ -28,7 +28,7 @@ jobs:
 
       - name: grade exercise
         run: |
-          gh workflow run "$EX_WORKFLOW" -f issue_trig=${{ github.event.issue.html_url }}
+          gh workflow run "$EX_WORKFLOW" -f issue_trig=${{ github.event.issue.html_url }} -f user=${{ github.actor }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EX_WORKFLOW: exercise1.yml
