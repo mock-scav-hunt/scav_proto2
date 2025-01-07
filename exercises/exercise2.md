@@ -1,2 +1,3 @@
 # Exercise 2
-Some instructions for second problem
+Create a branch with some name in the repo of exercise 1.
+If you didn't do exercise 1, the name of the repo should be recipes
