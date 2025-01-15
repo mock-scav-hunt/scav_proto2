@@ -20,10 +20,19 @@ jobs:
         id: grading
         run: |
           #actually do the grading here 
-          #the repo to look if it exist is user/recipes
+          
+          #check if repo exist
           gh repo list "$USER" 
-          #create some variable if it is correct?
-          echo "correct=no" >> "$GITHUB_OUTPUT"
+             
+          found_repo=$(gh repo list "guadabsb15" --json "name" --jq 'any(.[]; .name == "aoc_22")')
+          echo $found_repo
+
+          #give some variable value if it is correct or no?
+          if [ $found_repo ]
+          then
+            echo "correct=pass" >> "$GITHUB_OUTPUT"
+          else
+            echo "correct=no" >> "$GITHUB_OUTPUT"
         env: 
           USER: ${{ inputs.user }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
