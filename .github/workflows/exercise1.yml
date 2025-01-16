@@ -22,8 +22,6 @@ jobs:
           #actually do the grading here 
           
           #check if repo exist
-          gh repo list "$USER" 
-             
           found_repo=$(gh repo list "guadabsb15" --json "name" --jq 'any(.[]; .name == "aoc_22")')
           echo $found_repo
 
