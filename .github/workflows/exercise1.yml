@@ -76,5 +76,5 @@ jobs:
         run: gh issue close $ISSUE
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          ISSUE: ${{ inputs.issue_trig }}
 
