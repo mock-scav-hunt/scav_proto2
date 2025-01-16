@@ -33,6 +33,7 @@ jobs:
             echo "correct=pass" >> "$GITHUB_OUTPUT"
           else
             echo "correct=no" >> "$GITHUB_OUTPUT"
+          fi
         env: 
           USER: ${{ inputs.user }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
