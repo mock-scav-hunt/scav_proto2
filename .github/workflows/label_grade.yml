@@ -28,7 +28,8 @@ jobs:
         run: |
 
           CURRENT_ISSUE=${{ github.event.issue.html_url }}
-          ISSUE_TITLE=$(gh issue view "$CURREN_ISSUE" --json title --jq ".title")
+          ISSUE_TITLE=$(gh issue view "$CURRENT_ISSUE" --json title --jq ".title")
+          echo $ISSUE_TITLE
           EX_WORKFLOW="$ISSUE_TITLE.yml"
           echo $EX_WORKFLOW
           
