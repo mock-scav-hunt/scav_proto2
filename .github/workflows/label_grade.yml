@@ -27,11 +27,8 @@ jobs:
       - name: grade exercise
         run: |
 
-          CURRENT_ISSUE=${{ github.event.issue.html_url }}
-          ISSUE_TITLE=$(gh issue view "$CURRENT_ISSUE" --json title --jq ".title")
-          echo $ISSUE_TITLE
+          #get workflow name to run, which is isse_title.yml, eg exercise1.yml...etc 
           EX_WORKFLOW="$ISSUE_TITLE.yml"
-          echo $EX_WORKFLOW
           
           #for now not sending the title using contexts, I can get it in the next workflow with the html_url
           #also see 
@@ -39,7 +36,8 @@ jobs:
           gh workflow run "$EX_WORKFLOW" -f issue_trig=${{ github.event.issue.html_url }} -f user=${{ github.actor }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            #          EX_WORKFLOW: exercise1.yml
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+      
 
 
 
