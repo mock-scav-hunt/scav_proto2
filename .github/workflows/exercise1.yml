@@ -25,7 +25,7 @@ jobs:
 
           #give correct pass or no if grading went well
           #in this case repo was found
-          if [ $found_repo ]
+          if $found_repo
           then
             echo "correct=pass" >> "$GITHUB_OUTPUT"
           else
