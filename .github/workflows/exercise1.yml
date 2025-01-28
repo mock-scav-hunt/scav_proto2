@@ -20,7 +20,7 @@ jobs:
         run: |
           
           #check if repo exist
-          found_repo=$(gh repo list "$USER" --json "name" --jq 'any(.[]; .name == "aoc_22")')
+          found_repo=$(gh repo list "$USER" --json "name" --jq 'any(.[]; .name == "random_repo")')
           echo $found_repo
 
           #give correct pass or no if grading went well
