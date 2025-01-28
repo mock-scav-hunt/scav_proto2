@@ -45,10 +45,10 @@ jobs:
           #get issue title from html_url
           current_ex=$(gh issue view "$ISSUE" --json title --jq ".title")
           echo $current_ex
-          #TODO generalize from reading a file, instead of assuming it is just integer numbers
-          ex_n=$(echo "$current_ex"|grep -Eo "[0-9]+"|head -n1)
-          echo $ex_n
-          next_ex="exercise$((ex_n+1))"
+          current="$current_ex.md"
+          
+          #find on the exercises directory which is the next exercise__.md file 
+          next_ex=$(ls -v exercises| awk -v file=$current 'f==1{print;exit} $0==file{f=1}' )
           echo $next_ex
 
           next_file="exercises/${next_ex}.md"
