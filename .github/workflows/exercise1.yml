@@ -51,7 +51,7 @@ jobs:
           next_ex=$(ls -v exercises| awk -v file=$current 'f==1{print;exit} $0==file{f=1}' )
           echo $next_ex
 
-          next_file="exercises/${next_ex}.md"
+          next_file="exercises/${next_ex}"
           echo $next_file
 
           gh issue create --title "$next_ex" --body-file $next_file --repo $GITHUB_REPOSITORY
