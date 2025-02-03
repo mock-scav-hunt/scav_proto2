@@ -19,13 +19,13 @@ jobs:
         id: grading
         run: |
           
-          #check if repo exist
-          found_repo=$(gh repo list "$USER" --json "name" --jq 'any(.[]; .name == "aoc_22")')
-          echo $found_repo
+          #check if branch something exist in a specific repo 
+          found_branch=$(gh api /repos/guadabsb15/aoc_22/branches --jq 'any(.[]; .name == "something")')
+          echo $found_branch
 
           #give correct pass or no if grading went well
           #in this case repo was found
-          if [ $found_repo ]
+          if $found_branch
           then
             echo "correct=pass" >> "$GITHUB_OUTPUT"
           else
@@ -45,13 +45,13 @@ jobs:
           #get issue title from html_url
           current_ex=$(gh issue view "$ISSUE" --json title --jq ".title")
           echo $current_ex
-          #TODO generalize from reading a file, instead of assuming it is just integer numbers
-          ex_n=$(echo "$current_ex"|grep -Eo "[0-9]+"|head -n1)
-          echo $ex_n
-          next_ex="exercise$((ex_n+1))"
+          current="$current_ex.md"
+          
+          #find on the exercises directory which is the next exercise__.md file 
+          next_ex=$(ls -v exercises| awk -v file=$current 'f==1{print;exit} $0==file{f=1}' )
           echo $next_ex
 
-          next_file="exercises/${next_ex}.md"
+          next_file="exercises/${next_ex}"
           echo $next_file
 
           gh issue create --title "$next_ex" --body-file $next_file --repo $GITHUB_REPOSITORY

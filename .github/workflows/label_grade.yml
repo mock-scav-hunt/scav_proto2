@@ -22,7 +22,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
  
-      #TODO: get the exercinseN.yml, N, automatically, with current issue       
 
       - name: grade exercise
         run: |
