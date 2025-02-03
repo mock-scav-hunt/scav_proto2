@@ -51,7 +51,7 @@ jobs:
           next_ex=$(ls -v exercises| awk -v file=$current 'f==1{print;exit} $0==file{f=1}' )
           echo $next_ex
 
-          next_ex_name=$(basename -s ".md" "$nex_ex")
+          next_ex_name=$(basename -s ".md" "$next_ex")
           echo $next_ex_name
 
           next_file="exercises/${next_ex}"
