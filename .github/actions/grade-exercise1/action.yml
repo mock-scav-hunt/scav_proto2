@@ -19,7 +19,6 @@ runs:
       shell: bash
       env:
         INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
     - name: Random Number Generator
       id: random-number-generator
