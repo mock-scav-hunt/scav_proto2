@@ -13,10 +13,13 @@ runs:
   using: "composite"
   steps:
     - name: Set Greeting
-      run: echo "Hello $INPUT_WHO_TO_GREET."
+      run: |
+        echo "Hello $INPUT_WHO_TO_GREET."
+        gh repo list "$USER" --json "name" --jq 'any(.[]; .name == "aoc_22")'
       shell: bash
       env:
         INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
     - name: Random Number Generator
       id: random-number-generator

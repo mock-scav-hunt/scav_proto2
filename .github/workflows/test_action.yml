@@ -12,6 +12,8 @@ jobs:
         uses: ./.github/actions/grade-exercise1
         with:
           who-to-greet: 'Mona the Octocat'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo random-number "$RANDOM_NUMBER"
         shell: bash
         env:
