@@ -14,6 +14,7 @@ jobs:
 
   start_job: 
     runs-on: ubuntu-latest
+
     steps:
 
       - uses: actions/checkout@v3
@@ -26,19 +27,20 @@ jobs:
 
       - name: grade ex3
         id: grading
+        continue-on-error: true
         run: |
           python -m pip install --upgrade pip
           pip install pytest
 
           #check if testing branch on this repo has a python test that passes 
           git checkout testing 
-          pytest testing/example.py > output.txt
+          pytest testing/example.py
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: open issue n+1 when grade is pass
-        if: steps.grading.outputs.correct == 'pass'
+        if: !(failure() && steps.grading.outcome == 'failure')
         run: |
           #get issue title from html_url
           current_ex=$(gh issue view "$ISSUE" --json title --jq ".title")
@@ -62,7 +64,7 @@ jobs:
           ISSUE: ${{ inputs.issue_trig }}
 
       - name: comment on issue if wrong
-        if: steps.grading.outputs.correct != 'pass'
+        if: failure() && steps.integrationTests.outcome == 'failure'
         run: |
           echo $ISSUE        
           gh issue comment $ISSUE --body "$BODY"  
@@ -73,7 +75,7 @@ jobs:
 
 
       - name: close original issue
-        if: steps.grading.outputs.correct == 'pass'
+        if: !(failure() && steps.grading.outcome == 'failure')
         run: gh issue close $ISSUE
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
