@@ -31,7 +31,7 @@ jobs:
           pip install pytest
 
           #check if testing branch on this repo has a python test that passes 
-          git checkout branch testing 
+          git checkout testing 
           pytest testing/example.py
 
         env: 
