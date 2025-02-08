@@ -32,7 +32,7 @@ jobs:
 
           #check if testing branch on this repo has a python test that passes 
           git checkout testing 
-          pytest testing/example.py
+          pytest testing/example.py > output.txt
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
