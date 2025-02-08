@@ -64,7 +64,7 @@ jobs:
           ISSUE: ${{ inputs.issue_trig }}
 
       - name: comment on issue if wrong
-        if: failure() && steps.grading.outcome == 'failure'
+        if: steps.grading.outcome == 'failure'
         run: |
           echo $ISSUE        
           gh issue comment $ISSUE --body "$BODY"  
