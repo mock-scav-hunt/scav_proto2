@@ -28,13 +28,15 @@ jobs:
 
           gh label clone mock-scav-hunt/scav_proto2
 
-
-          gh issue create --title "$TITLE" --body-file "exercises/exercise1.md" --label "git"  --repo $GITHUB_REPOSITORY
-
+          for name in $(ls -v exercices)
+          do 
+            TITLE=$(basename -s ".md" "$name") 
+            ISSUE_FILE="exercises/${name}" 
+            gh issue create --title "$TITLE" --body-file "$ISSUE_FILE" --label "git"  --repo $GITHUB_REPOSITORY
+          done
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TITLE: exercise1
          
     
            
