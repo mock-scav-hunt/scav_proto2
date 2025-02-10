@@ -41,7 +41,8 @@ jobs:
           #create branch with score
           git checkout -b score
           
-          sed -i '/^setup:/s/$/*/' score.md       
+          sed -i '/^setup:/s/$/*/' score.md      
+ 
 
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,6 +52,8 @@ jobs:
           default_author: github_actions
           add: 'score.md'
           message: 'update score with setup star'
+          new_branch: score
+          tag_push: '--set-upstream origin' 
     
            
            
