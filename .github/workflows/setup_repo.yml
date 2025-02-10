@@ -28,7 +28,7 @@ jobs:
 
           gh label clone mock-scav-hunt/scav_proto2
 
-          for name in $(ls -v exercices)
+          for name in $(ls -v exercises)
           do 
             TITLE=$(basename -s ".md" "$name") 
             ISSUE_FILE="exercises/${name}" 
