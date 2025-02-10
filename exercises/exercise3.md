@@ -3,3 +3,6 @@ Create a new branch with the name `testing` and create a function `test_add` ins
 Then push that new branch in your fork. 
 
 Hint: Look at the first exercise on [lesson](https://coderefinery.github.io/testing/locally/)
+
+[tag]:#(test,python)
+

@@ -28,11 +28,14 @@ jobs:
 
           gh label clone mock-scav-hunt/scav_proto2
 
+          #open all the exercises as issues 
           for name in $(ls -v exercises)
           do 
             TITLE=$(basename -s ".md" "$name") 
             ISSUE_FILE="exercises/${name}" 
-            gh issue create --title "$TITLE" --body-file "$ISSUE_FILE" --label "git"  --repo $GITHUB_REPOSITORY
+            #read the labels from the comment at bottom of each file
+            LABELS=$(tail -n 2 $ISSUE_FILE | head -n 1 | awk -F '[()]' '{print $2}')
+            gh issue create --title "$TITLE" --body-file "$ISSUE_FILE" --label "$LABELS"  --repo $GITHUB_REPOSITORY
           done
 
         env: 
