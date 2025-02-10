@@ -38,6 +38,17 @@ jobs:
             gh issue create --title "$TITLE" --body-file "$ISSUE_FILE" --label "$LABELS"  --repo $GITHUB_REPOSITORY
           done
 
+          #create branch with score
+          git checkout -b score
+          
+          sed -i '/^setup:/s/$/*/' score.md
+
+          git add score.md
+          git commit -m "update score with setup token"
+          git push origin score 
+
+       
+
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          
