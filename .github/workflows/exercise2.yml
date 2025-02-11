@@ -20,7 +20,7 @@ jobs:
         run: |
           
           #check if branch something exist in a specific repo 
-          found_branch=$(gh api /repos/guadabsb15/aoc_22/branches --jq 'any(.[]; .name == "something")')
+          found_branch=$(gh api /repos/$USER/aoc_22/branches --jq 'any(.[]; .name == "something")')
           echo $found_branch
 
           #give correct pass or no if grading went well
